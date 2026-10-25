@@ -24,12 +24,14 @@ public class Player_controller : MonoBehaviour
     public float atktimer = 1;
 
     public bool direction = false;
-    
+
 
 
     private state currentstate = state.idle;
 
     public AudioSource[] slashes;
+    public GameManager gameManager;
+    public bool dead = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,103 +44,121 @@ public class Player_controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W))
+        if (dead == false)
         {
-            if (currentstate == state.idle)
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W))
             {
-                currentstate = state.run;
-                animator.SetBool("IsRunning", true);
-
-
-
-                if (Input.GetKey(KeyCode.D))
+                if (currentstate == state.idle)
                 {
-                    transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-                    direction = true;
+                    currentstate = state.run;
+                    animator.SetBool("IsRunning", true);
+
+
+
+                    if (Input.GetKey(KeyCode.D))
+                    {
+                        transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                        direction = true;
+
+                    }
+
+                    if (Input.GetKey(KeyCode.A))
+                    {
+                        direction = false;
+                    }
 
                 }
 
-                if (Input.GetKey(KeyCode.A))
-                {
-                    direction = false;
-                }
-
-            }
-            
-        }
-        else
-        {
-            currentstate = state.idle;
-            animator.SetBool("IsRunning", false);
-            
-
-            if (direction == true)
-            {
-                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             }
             else
             {
-                transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                currentstate = state.idle;
+                animator.SetBool("IsRunning", false);
+
+
+                if (direction == true)
+                {
+                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                }
+
+
             }
 
-
-        }
-
-        if (attacking == false) {
-        
-            if (Input.GetKey(KeyCode.Space))
+            if (attacking == false)
             {
-                attacking = true;
-                atktimer = atkduration;
-                //use the array of audio sources 
-                //get a random int from 0 to 2
-                int roll = Random.Range(0, 3);
-                //use random int as an index for the slashes array
-                slashes[roll].Play();
 
-                attackanim.SetTrigger("attack");
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    attacking = true;
+                    atktimer = atkduration;
+                    //use the array of audio sources 
+                    //get a random int from 0 to 2
+                    int roll = Random.Range(0, 3);
+                    //use random int as an index for the slashes array
+                    slashes[roll].Play();
 
+                    attackanim.SetTrigger("attack");
+
+
+
+                }
 
 
             }
 
-        
-        }
-
-        if (attacking == true) {
-
-
-            atktimer -= Time.deltaTime;
-
-            if (atktimer <= 0)
+            if (attacking == true)
             {
-                attacking = false;
+
+
+                atktimer -= Time.deltaTime;
+
+                if (atktimer <= 0)
+                {
+                    attacking = false;
+                }
+            }
+
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                Vector3 pos = transform.position;
+                gameObject.transform.position = new Vector3(pos.x - (Time.deltaTime * speed), pos.y, pos.z);
+            }
+
+            if (Input.GetKey(KeyCode.S))
+            {
+                Vector3 pos = transform.position;
+                gameObject.transform.position = new Vector3(pos.x, pos.y - (Time.deltaTime * speed), pos.z);
+
+            }
+
+            if (Input.GetKey(KeyCode.D))
+            {
+                Vector3 pos = transform.position;
+                gameObject.transform.position = new Vector3(pos.x + (Time.deltaTime * speed), pos.y, pos.z);
+
+            }
+
+            if (Input.GetKey(KeyCode.W))
+            {
+                Vector3 pos = transform.position;
+                gameObject.transform.position = new Vector3(pos.x, pos.y + (Time.deltaTime * speed), pos.z);
+
             }
         }
 
+    }
 
-        if (Input.GetKey(KeyCode.A)) {
-            Vector3 pos = transform.position;
-            gameObject.transform.position = new Vector3(pos.x - (Time.deltaTime * speed), pos.y, pos.z);
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "enemy")
+        {
+            dead = true;
+            gameManager.GameOver();
         }
-
-        if (Input.GetKey(KeyCode.S)) {
-            Vector3 pos = transform.position;
-            gameObject.transform.position = new Vector3(pos.x, pos.y - (Time.deltaTime * speed), pos.z);
-
-        }
-
-        if (Input.GetKey(KeyCode.D)) {
-            Vector3 pos = transform.position;
-            gameObject.transform.position = new Vector3(pos.x + (Time.deltaTime * speed), pos.y, pos.z);
-
-        }
-
-        if (Input.GetKey(KeyCode.W)) {
-            Vector3 pos = transform.position;
-            gameObject.transform.position = new Vector3(pos.x, pos.y + (Time.deltaTime * speed), pos.z);
-
-        }
-
-    } 
+    }
 }

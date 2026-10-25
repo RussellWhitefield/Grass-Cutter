@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player_controller : MonoBehaviour
@@ -15,6 +16,11 @@ public class Player_controller : MonoBehaviour
 
     }
     public Animator animator;
+    public bool attacking = false;
+    public float atkduration = 1;
+    public float atktimer = 1;
+    
+
 
     private state currentstate = state.idle;
 
@@ -32,13 +38,45 @@ public class Player_controller : MonoBehaviour
             if (currentstate == state.idle)
             {
                 currentstate = state.run;
+                animator.SetBool("IsRunning", true);
 
-                else;
-                
+                if (Input.GetKey(KeyCode.D))
+                {
+
+                }
+
 
             }
+            
+        }
+        else
+        {
+            currentstate = state.idle;
+            animator.SetBool("IsRunning", false);
+
         }
 
+        if (attacking == false) {
+        
+            if (Input.GetKey(KeyCode.Space))
+            {
+                attacking = true;
+                atktimer = atkduration;
+
+            }
+
+        
+        }
+
+        if (attacking == true) {
+
+            atktimer -= Time.deltaTime;
+
+            if (atktimer <= 0)
+            {
+                attacking = false;
+            }
+        }
 
 
         if (Input.GetKey(KeyCode.A)) {

@@ -53127,6 +53127,7 @@ GameObject:
   - component: {fileID: 915976804}
   - component: {fileID: 915976806}
   - component: {fileID: 915976805}
+  - component: {fileID: 915976807}
   m_Layer: 0
   m_Name: swoosh_0
   m_TagString: Untagged
@@ -53231,6 +53232,64 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!60 &915976807
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915976803}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.24, y: 0.11}
+    newSize: {x: 0.24, y: 0.11}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.03429263, y: 0.050368536}
+      - {x: 0.00932824, y: 0.04832914}
+      - {x: -0.014125134, y: 0.038126472}
+      - {x: -0.08, y: 0.024999999}
+      - {x: -0.07, y: -0.005}
+      - {x: -0.089999996, y: -0.005}
+      - {x: -0.12, y: -0.015}
+      - {x: -0.031075887, y: -0.03276897}
+      - {x: 0.07675797, y: -0.025358638}
+      - {x: 0.12092628, y: 0.0032519344}
+      - {x: 0.09962156, y: 0.03415842}
+  m_UseDelaunayMesh: 1
 --- !u!1 &1144090145
 GameObject:
   m_ObjectHideFlags: 0
@@ -53639,9 +53698,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player_controller
   speed: 5
   animator: {fileID: 1940366855}
+  attackanim: {fileID: 915976805}
   attacking: 0
   atkduration: 0.25
   atktimer: 1
+  direction: 0
   slashes:
   - {fileID: 1940366857}
   - {fileID: 1940366856}

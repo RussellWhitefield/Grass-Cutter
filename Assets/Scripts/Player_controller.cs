@@ -16,6 +16,9 @@ public class Player_controller : MonoBehaviour
 
     }
     public Animator animator;
+
+    public Animator attackanim;
+
     public bool attacking = false;
     public float atkduration = 1;
     public float atktimer = 1;
@@ -32,6 +35,8 @@ public class Player_controller : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+
+
     }
 
     // Update is called once per frame
@@ -43,6 +48,8 @@ public class Player_controller : MonoBehaviour
             {
                 currentstate = state.run;
                 animator.SetBool("IsRunning", true);
+
+
 
                 if (Input.GetKey(KeyCode.D))
                 {
@@ -89,12 +96,17 @@ public class Player_controller : MonoBehaviour
                 //use random int as an index for the slashes array
                 slashes[roll].Play();
 
+                attackanim.SetTrigger("attack");
+
+
+
             }
 
         
         }
 
         if (attacking == true) {
+
 
             atktimer -= Time.deltaTime;
 

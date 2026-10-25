@@ -24,6 +24,8 @@ public class Player_controller : MonoBehaviour
 
     private state currentstate = state.idle;
 
+    public AudioSource[] slashes;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -62,6 +64,11 @@ public class Player_controller : MonoBehaviour
             {
                 attacking = true;
                 atktimer = atkduration;
+                //use the array of audio sources 
+                //get a random int from 0 to 2
+                int roll = Random.Range(0, 3);
+                //use random int as an index for the slashes array
+                slashes[roll].Play();
 
             }
 

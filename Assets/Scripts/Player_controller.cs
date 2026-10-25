@@ -44,7 +44,8 @@ public class Player_controller : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.D))
                 {
-
+                    transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                
                 }
 
 
@@ -55,6 +56,7 @@ public class Player_controller : MonoBehaviour
         {
             currentstate = state.idle;
             animator.SetBool("IsRunning", false);
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
         }
 

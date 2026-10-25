@@ -57,14 +57,15 @@ public class Player_controller : MonoBehaviour
 
                     if (Input.GetKey(KeyCode.D))
                     {
-                        transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                         direction = true;
 
                     }
 
-                    if (Input.GetKey(KeyCode.A))
+                    else if (Input.GetKey(KeyCode.A))
                     {
                         direction = false;
+                        transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                     }
 
                 }

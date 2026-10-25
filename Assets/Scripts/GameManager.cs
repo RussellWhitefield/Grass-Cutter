@@ -75,6 +75,11 @@ public class GameManager : MonoBehaviour
     {
         spawnCountDown = 5;
         spawnRate--;
+
+        if(spawnRate < 2)
+        {
+            spawnRate = 2;
+        }
     }
 
     void SpawnGhost()
